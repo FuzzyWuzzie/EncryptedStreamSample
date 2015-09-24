@@ -1,0 +1,26 @@
+﻿<Window x:Class="ESSClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ESSClient"
+        mc:Ignorable="d"
+        Title="ESS Client" Height="350" Width="525" Closing="Window_Closing">
+    <Window.DataContext>
+        <local:MainViewModel></local:MainViewModel>
+    </Window.DataContext>
+    <DockPanel LastChildFill="True">
+      <StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
+        <TextBlock Text="{Binding Status}"></TextBlock>
+      </StatusBar>
+        <DockPanel DockPanel.Dock="Bottom" LastChildFill="True" Margin="5">
+            <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Content="Send!" Margin="5,0,0,0" Command="{Binding SendTextCommand}"/>
+          <TextBox x:Name="InputTextBox" Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <TextBox.InputBindings>
+              <KeyBinding Key="Enter" Command="{Binding SendTextCommand}"/>
+            </TextBox.InputBindings>
+          </TextBox>
+        </DockPanel>
+        <ListBox ItemsSource="{Binding Log}" ScrollViewer.VerticalScrollBarVisibility="Visible" BorderThickness="1" Margin="5,5,5,0"/>
+    </DockPanel>
+</Window>
